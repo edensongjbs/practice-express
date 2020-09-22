@@ -3,10 +3,14 @@ const path = require('path')
 
 const app = express()
 
-app.get('/', (req, res) => {
-    // res.send("<h1>Hello Ya'll!</h1>")
-    res.sendFile(path.join(__dirname, 'public', 'index.html'))
-})
+// app.get('/', (req, res) => {
+//     // res.send("<h1>Hello Ya'll!</h1>")
+//     res.sendFile(path.join(__dirname, 'public', 'index.html'))
+// })
+
+// set a static folder
+
+app.use(express.static(path.join(__dirname, 'public')))
 
 const PORT = process.env.PORT || 5000
 
