@@ -2,6 +2,7 @@ const express = require('express')
 const path = require('path')
 const members = require('./public/members.js')
 const moment = require('moment')
+const expressHandle = require ('express-handlebars')
 
 const app = express()
 
@@ -17,11 +18,32 @@ const logger = (req, res, next) => {
     next()
 }
 
+//Body Parser Middleware
+app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
+app.use(express)
+
 app.use(logger)
-app.use(express.static(path.join(__dirname, 'public')))
+
+app.engine('handlebars', expressHandle({defaultLayout: 'main'}))
+app.set('view engine', 'handlebars')
+
+app.get('/', (req, res) => {
+    res.render('index')
+})
+
+// app.use(express.static(path.join(__dirname, 'public')))
 
 app.get('/api/members', (req, res) => {
     res.json(members)
+})
+
+app.get('/api/members/:id', (req, res) => {
+    const member =  members.list[req.params.id]
+    if (member) {
+        res.json()
+    }
+    else { res.status(400).json({message: `Not Found`})} 
 })
 
 const PORT = process.env.PORT || 5000
