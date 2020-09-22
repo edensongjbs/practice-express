@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require('path')
+const members = require('./public/members.js')
 
 const app = express()
 
@@ -11,6 +12,10 @@ const app = express()
 // set a static folder
 
 app.use(express.static(path.join(__dirname, 'public')))
+
+app.get('/api/members', (req, res) => {
+    res.json(members)
+})
 
 const PORT = process.env.PORT || 5000
 
