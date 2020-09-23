@@ -4,14 +4,15 @@ const members = require('./public/members.js')
 const moment = require('moment')
 const expressHandle = require ('express-handlebars')
 const mongoose = require('mongoose')
-const Schema = mongoose.Schema
-
-var testSchema = new Schema(
-    
-)
+const Test = require('./db/schemas/test')
 
 
 const app = express()
+
+const myDb = 'mongodb://localhost/mongoose-test'
+
+mongoose.connect(myDb, {useNewUrlParser:true, useUnifiedTopology: true})
+
 
 // app.get('/', (req, res) => {
 //     // res.send("<h1>Hello Ya'll!</h1>")
@@ -56,3 +57,6 @@ app.get('/api/members/:id', (req, res) => {
 const PORT = process.env.PORT || 5000
 
 app.listen(PORT, () => console.log(`Server running on ${PORT}`))
+
+Test.create({}, (err) => console.log('Created '+ err))
+console.log('done with debugger')
