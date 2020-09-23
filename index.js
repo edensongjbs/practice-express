@@ -3,6 +3,13 @@ const path = require('path')
 const members = require('./public/members.js')
 const moment = require('moment')
 const expressHandle = require ('express-handlebars')
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
+
+var testSchema = new Schema(
+    
+)
+
 
 const app = express()
 
@@ -25,12 +32,12 @@ app.use(express)
 
 app.use(logger)
 
-app.engine('handlebars', expressHandle({defaultLayout: 'main'}))
-app.set('view engine', 'handlebars')
+// app.engine('handlebars', expressHandle({defaultLayout: 'main'}))
+// app.set('view engine', 'handlebars')
 
-app.get('/', (req, res) => {
-    res.render('index')
-})
+// app.get('/', (req, res) => {
+//     res.render('index')
+// })
 
 // app.use(express.static(path.join(__dirname, 'public')))
 
